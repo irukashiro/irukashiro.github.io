@@ -1,2 +1,0 @@
-# irukashiro の Github pagesだよ
-
