@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roguelike Game</title>
+    <style>
+        .log-window {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="title-screen">
+            <h1>Roguelike Game</h1>
+            <button onclick="startGame()">Start Game</button>
+        </div>
+    
+        <div id="game-screen" style="display: none;">
+            <h2>Player Status</h2>
+            <ul>
+                <li>HP: <span id="player-hp"></span></li>
+                <li>Attack: <span id="player-attack"></span></li>
+                <li>Accuracy: <span id="player-accuracy"></span></li>
+                <li>Agility: <span id="player-agility"></span></li>
+                <li>Level: <span id="player-level"></span></li>
+                <li>Experience: <span id="player-exp"></span></li>
+            </ul>
+    
+            <h2>Event Log</h2>
+            <div class="log-window">
+                <ul id="log-list"></ul>
+            </div>
+    
+            <h2>Actions</h2>
+            <select id="player-action">
+                <option value="攻撃">攻撃</option>
+                <option value="回避">回避</option>
+                <option value="逃走">逃走</option>
+            </select>
+            <button onclick="resolveEvent()">Execute Action</button>
+        </div>
+    
+        <script src="Dangeon_script.js"></script>
+    </body>
+    </html>
+    
