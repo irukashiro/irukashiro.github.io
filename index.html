@@ -1,62 +1,494 @@
 <!DOCTYPE html>
-<html>
-
-<meta charset="utf-8">
-    <title>1322 白井隆佳 intro</title>
-
-
-    <link 
-        rel="stylesheet"
-        type="text/css"
-        herf="nousakubutsu.css">
-
-    </link rel>
-
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas SHIRAI | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        h1 {
-            background-color: rgb(60, 255, 200);
+        /* --- Base Settings --- */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --primary-color: #00d4ff; /* Tech Blue */
+            --accent-color: #ff007a;  /* Creative Pink */
+            --text-main: #e0e0e0;
+            --text-sub: #a0a0a0;
+            --font-main: "Helvetica Neue", Arial, sans-serif;
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- Header & Lang Switcher --- */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav ul { display: flex; gap: 1.5rem; }
+        nav a:hover { color: var(--primary-color); }
+
+        /* Language Buttons */
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: #333;
+            padding: 0.3rem;
+            border-radius: 20px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover { color: #fff; }
+        
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: #121212;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #121212 70%);
+        }
+
+        .hero h1 { font-size: 4rem; margin-bottom: 1rem; line-height: 1.1; }
+        .hero h1 span { color: var(--primary-color); }
+        .hero p { font-size: 1.2rem; color: var(--text-sub); margin-bottom: 2rem; max-width: 800px; }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: var(--primary-color);
+            color: #121212;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        /* --- Sections --- */
+        section { padding: 5rem 10%; }
+        
         h2 {
-            background-color: aqua;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        h2::after {
+            content: ''; display: block; width: 60px; height: 4px;
+            background: var(--accent-color); margin: 10px auto 0;
+        }
+
+        /* --- About --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .profile-row {
+            margin-bottom: 1rem;
+            display: flex;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .profile-label { font-weight: bold; width: 140px; color: var(--text-sub); flex-shrink: 0; }
+        .profile-value { word-break: break-word; }
+
+        .tag-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .tag { background: #333; padding: 0.3rem 0.8rem; border-radius: 5px; font-size: 0.9rem; }
+        .tag.highlight { border: 1px solid var(--primary-color); color: var(--primary-color); background: rgba(0,212,255,0.1); }
+
+        /* --- Skills --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .skill-category {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .skill-category:hover { transform: translateY(-5px); }
+        .skill-category i { font-size: 3rem; margin-bottom: 1rem; color: var(--accent-color); }
+
+        /* --- Works --- */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .work-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .work-card:hover { transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        
+        .work-thumb {
+            height: 150px;
+            background: linear-gradient(45deg, #2a2a40, #1a1a2e);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 3rem; color: var(--text-sub);
+        }
+        .work-info { padding: 1.5rem; }
+        .work-info h3 { margin-bottom: 0.5rem; color: var(--primary-color); }
+        .work-year { font-size: 0.8rem; color: var(--text-sub); display: block; margin-bottom: 0.5rem;}
+        .work-desc { font-size: 0.95rem; margin-bottom: 1rem; min-height: 3rem; }
+        .work-link { color: var(--accent-color); font-weight: bold; font-size: 0.9rem; }
+
+        /* --- Footer --- */
+        footer { text-align: center; padding: 2rem; background: #0a0a0a; color: var(--text-sub); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-content { grid-template-columns: 1fr; }
+            nav ul { display: none; } /* Simplified for mobile */
         }
     </style>
 </head>
-
 <body>
-<p>1322 intro</p>
 
-<h1>my page</h1>
+    <header>
+        <div class="logo">LUCAS SHIRAI</div>
+        <div class="nav-wrapper">
+            <nav>
+                <ul>
+                    <li><a href="#about" data-i18n="nav_about">About</a></li>
+                    <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+                    <li><a href="#works" data-i18n="nav_works">Works</a></li>
+                </ul>
+            </nav>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLanguage('ja')">JP</button>
+                <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
+            </div>
+        </div>
+    </header>
 
-Gmailは<a>m23082 at g.metro-cit.ac.jpこちら</a>
+    <section class="hero">
+        <h1>Lucas <span>SHIRAI</span></h1>
+        <p data-i18n="hero_desc">
+            東京都立産業技術高等専門学校<br>
+            電気電子工学 / ゲームデザイン / イラストレーション
+        </p>
+        <a href="#works" class="btn" data-i18n="hero_btn">View Portfolio</a>
+    </section>
 
-<h2>How engenier want to be</h2>
-<p>クリエイティブなサービスを開発するエンジニア</p>
-    <p><a href="https://irukashiro.github.io/trogue/">moji Rogue</a></p>
-    <p>・イラストレーターのipvを管理するツール</p>
-    <p>・Ai画像聖瀬をを有効活用したポーズのトレス素体</p>
+    <section id="about">
+        <h2 data-i18n="section_about">About Me</h2>
+        <div class="about-content">
+            <div class="profile-card">
+                <div class="profile-row">
+                    <span class="profile-label" data-i18n="label_name">Name</span>
+                    <span class="profile-value">白井 隆佳 (Lucas SHIRAI)</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label" data-i18n="label_age">Age</span>
+                    <span class="profile-value">18</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label" data-i18n="label_aff">Affiliation</span>
+                    <span class="profile-value" data-i18n="val_aff">
+                        東京都立産業技術高等専門学校<br>（品川キャンパス）電気電子工学コース
+                    </span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label" data-i18n="label_lang">Languages</span>
+                    <span class="profile-value" data-i18n="val_lang">
+                        日本語 (Native), 英語 (英検準二級)
+                    </span>
+                </div>
+            </div>
+            
+            <div class="interests">
+                <h3><i class="fas fa-bolt"></i> <span data-i18n="about_expertise_title">Fields of Expertise</span></h3>
+                <p style="margin: 1rem 0; color: var(--text-sub);" data-i18n="about_desc">
+                    ハードウェアの知識を基礎に、ソフトウェアによる表現力を磨いています。TRPGのシナリオ・システム構築からビジュアル制作までを一貫して行うクリエイティビティが強みです。
+                </p>
+                <div class="tag-container">
+                    <span class="tag highlight" data-i18n="tag_ee">電気電子工学</span>
+                    <span class="tag highlight">Python Game Dev</span>
+                    <span class="tag">TRPG Game Design</span>
+                    <span class="tag" data-i18n="tag_illust">イラスト</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<h2>My skils</h2>
+    <section id="skills">
+        <h2 data-i18n="section_skills">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <i class="fas fa-code"></i>
+                <h3 data-i18n="skill_lang">Languages</h3>
+                <ul>
+                    <li>Python</li>
+                    <li>C / C++</li>
+                    <li>TeX</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <i class="fas fa-tools"></i>
+                <h3 data-i18n="skill_tools">Tools</h3>
+                <ul>
+                    <li>VS Code</li>
+                    <li>Blender</li>
+                    <li>ibisPaint</li>
+                    <li>Pyxel (Lib)</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <i class="fas fa-certificate"></i>
+                <h3 data-i18n="skill_cert">Certifications</h3>
+                <ul>
+                    <li data-i18n="cert_electric">第二種電気工事士</li>
+                    <li data-i18n="cert_english">英検準二級</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-<p>Try to ...</p>
+    <section id="works">
+        <h2 data-i18n="section_works">Works</h2>
+        <div class="works-grid">
+            
+            <!-- Work 1 -->
+            <div class="work-card">
+                <div class="work-thumb"><i class="fas fa-gamepad"></i></div>
+                <div class="work-info">
+                    <span class="work-year">2024</span>
+                    <h3>text_rougue</h3>
+                    <p class="work-desc" data-i18n="work1_desc">
+                        テキストベースのローグライクゲーム。Pythonでのアルゴリズム構築の実践。
+                    </p>
+                    <a href="https://irukashiro.github.io/trogue/" target="_blank" class="work-link">
+                        Play Game <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
 
-<p>    ＃イラストレーション
-    <p>・半年前から本格的に描き続けている</p>
-    <p>・最近はLive2Dの学習中</p>
-    <p>・イラストレーションを使ったボランティア活動</p>
-<!---    <img src="/img/raku_sq.png" width=100 height=100 alt="らくがき"> -->
+            <!-- Work 2 -->
+            <div class="work-card">
+                <div class="work-thumb"><i class="fas fa-dungeon"></i></div>
+                <div class="work-info">
+                    <span class="work-year">2025</span>
+                    <h3>wiz_dunjon</h3>
+                    <p class="work-desc" data-i18n="work2_desc">
+                        ダンジョン探索型RPG。Pyxelを活用し、レトロなビジュアルと操作性を実現。
+                    </p>
+                    <a href="https://irukashiro.github.io/game/wiz.html" target="_blank" class="work-link">
+                        Play Game <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
 
-    <p><a href="./game/wiz.html">pyxel game</a></p>
-    <p><a href="./game/slaylike.html">pyxel game</a></p>
+            <!-- Work 3 -->
+            <div class="work-card">
+                <div class="work-thumb"><i class="fas fa-dice-d20"></i></div>
+                <div class="work-info">
+                    <span class="work-year">2025</span>
+                    <h3>slaylike_cardgame</h3>
+                    <p class="work-desc" data-i18n="work3_desc">
+                        デッキ構築型カードゲーム。ゲームバランスの調整と戦略性の設計に注力。
+                    </p>
+                    <a href="https://irukashiro.github.io/game/slaylike.html" target="_blank" class="work-link">
+                        Play Game <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
 
-    ＃3Dモデリング
-    <p>・モデリング研究同好会に所属</p>
-    <p>・中学の部活で360を2年間使用</p>
-    <p>・複数のパーツをどうやって一回で印刷するかに格闘中</p>
-</p>
+        </div>
+    </section>
 
-<h2>want to do - things to do</h2>
-<p></p>
+    <footer>
+        <p>&copy; 2025 Lucas SHIRAI. All Rights Reserved.</p>
+        <div style="margin-top: 10px;">
+            <a href="https://github.com/irukashiro" target="_blank" style="color: white; font-size: 1.5rem;">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </footer>
 
+    <!-- JavaScript for Translations -->
+    <script>
+        const translations = {
+            ja: {
+                nav_about: "About",
+                nav_skills: "Skills",
+                nav_works: "Works",
+                hero_desc: "東京都立産業技術高等専門学校<br>電気電子工学 / ゲームデザイン / イラストレーション",
+                hero_btn: "ポートフォリオを見る",
+                section_about: "About Me",
+                label_name: "氏名",
+                label_age: "年齢",
+                label_aff: "所属",
+                val_aff: "東京都立産業技術高等専門学校<br>（品川キャンパス）電気電子工学コース",
+                label_lang: "言語",
+                val_lang: "日本語 (ネイティブ), 英語 (英検準二級)",
+                about_expertise_title: "得意領域",
+                about_desc: "ハードウェアの知識を基礎に、ソフトウェアによる表現力を磨いています。TRPGのシナリオ・システム構築からビジュアル制作までを一貫して行うクリエイティビティが強みです。",
+                tag_ee: "電気電子工学",
+                tag_illust: "イラストレーション",
+                section_skills: "Technical Skills",
+                skill_lang: "プログラミング言語",
+                skill_tools: "ツール",
+                skill_cert: "資格",
+                cert_electric: "第二種電気工事士",
+                cert_english: "実用英語技能検定 準二級",
+                section_works: "Works",
+                work1_desc: "テキストベースのローグライクゲーム。Pythonでのアルゴリズム構築の実践。",
+                work2_desc: "ダンジョン探索型RPG。Pyxelを活用し、レトロなビジュアルと操作性を実現。",
+                work3_desc: "デッキ構築型カードゲーム。ゲームバランスの調整と戦略性の設計に注力。"
+            },
+            en: {
+                nav_about: "About",
+                nav_skills: "Skills",
+                nav_works: "Works",
+                hero_desc: "Student at Tokyo Metropolitan College of Industrial Technology<br>Electrical Engineering / Game Design / Illustration",
+                hero_btn: "View Portfolio",
+                section_about: "About Me",
+                label_name: "Name",
+                label_age: "Age",
+                label_aff: "Affiliation",
+                val_aff: "Tokyo Metropolitan College of Industrial Technology<br>(Shinagawa Campus) Electrical Engineering",
+                label_lang: "Languages",
+                val_lang: "Japanese (Native), English (EIKEN Pre-2)",
+                about_expertise_title: "Fields of Expertise",
+                about_desc: "I hone my software expression skills based on hardware knowledge. My strength lies in creativity that consistently handles everything from TRPG scenario/system construction to visual production.",
+                tag_ee: "Electrical Eng.",
+                tag_illust: "Illustration",
+                section_skills: "Technical Skills",
+                skill_lang: "Languages",
+                skill_tools: "Tools",
+                skill_cert: "Certifications",
+                cert_electric: "Second-Class Electrician",
+                cert_english: "EIKEN Grade Pre-2",
+                section_works: "Works",
+                work1_desc: "Text-based roguelike game. Practical application of algorithm construction in Python.",
+                work2_desc: "Dungeon exploration RPG. Utilizes Pyxel library to achieve retro visuals and controls.",
+                work3_desc: "Deck-building card game. Focused on game balance adjustment and strategic design."
+            },
+            fr: {
+                nav_about: "À propos",
+                nav_skills: "Compétences",
+                nav_works: "Projets",
+                hero_desc: "Étudiant au Collège Métropolitain de Technologie Industrielle de Tokyo<br>Génie Électrique / Game Design / Illustration",
+                hero_btn: "Voir le Portfolio",
+                section_about: "À propos de moi",
+                label_name: "Nom",
+                label_age: "Âge",
+                label_aff: "Affiliation",
+                val_aff: "Collège Métropolitain de Technologie Industrielle de Tokyo<br>(Campus Shinagawa) Génie Électrique",
+                label_lang: "Langues",
+                val_lang: "Japonais (Natal), Anglais (Intermédiaire)",
+                about_expertise_title: "Domaines d'expertise",
+                about_desc: "Je perfectionne mes compétences logicielles en m'appuyant sur mes connaissances en matériel. Ma force réside dans une créativité qui couvre tout, de la construction de scénarios/systèmes JDR à la production visuelle.",
+                tag_ee: "Génie Électrique",
+                tag_illust: "Illustration",
+                section_skills: "Compétences Techniques",
+                skill_lang: "Langages",
+                skill_tools: "Outils",
+                skill_cert: "Certifications",
+                cert_electric: "Électricien (2e classe)",
+                cert_english: "EIKEN Grade Pre-2 (Anglais)",
+                section_works: "Réalisations",
+                work1_desc: "Jeu roguelike textuel. Application pratique de la construction d'algorithmes en Python.",
+                work2_desc: "RPG d'exploration de donjon. Utilise la librairie Pyxel pour des visuels et contrôles rétro.",
+                work3_desc: "Jeu de cartes de construction de deck. Axé sur l'ajustement de l'équilibre du jeu et la stratégie."
+            }
+        };
+
+        function setLanguage(lang) {
+            // Update Text
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Update Button Styles
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
-
 </html>
